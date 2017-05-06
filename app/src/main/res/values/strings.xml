@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Android IRC LogViewer</string>
+    <string name="title_forward">Forward</string>
+    <string name="title_refresh">Refresh</string>
+    <string name="title_back">Back</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_base_url">Base URL</string>
+    <string name="pref_default_base_url">http://krul.finf.uni-hannover.de/~sammyshp/cgeo-logs</string>
+
+</resources>
