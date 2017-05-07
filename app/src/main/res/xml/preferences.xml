@@ -12,5 +12,14 @@
         android:singleLine="true"
         android:title="@string/pref_title_base_url"/>
 
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/pref_default_nickname"
+        android:inputType="textCapWords"
+        android:key="nickname"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_nickname"/>
 
 </PreferenceScreen>

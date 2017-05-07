@@ -1,6 +1,7 @@
 package org.pstorch.androidirclogviewer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     private String baseUrl = null;
+    private String nickname = null;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -115,7 +117,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        baseUrl = PreferenceManager.getDefaultSharedPreferences(this).getString("base_url", null);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        baseUrl = preferences.getString("base_url", null);
+        nickname = preferences.getString("nickname", null);
 
         loadLog();
     }
@@ -150,9 +154,16 @@ public class MainActivity extends AppCompatActivity {
             if (matcher.matches()) {
                 final String user = matcher.group(2);
                 final String color = "#" + Integer.toHexString(user.hashCode()).substring(0, 6);
+                final String message = matcher.group(3);
+                if (nickname != null && message.contains(nickname)) {
+                    formattedText.append("<b>");
+                }
                 formattedText.append(matcher.group(1))
                         .append("<font color=\"").append(color).append("\"> ").append(user).append(": </font>")
-                        .append(Html.escapeHtml(matcher.group(3)));
+                        .append(Html.escapeHtml(message));
+                if (nickname != null && message.contains(nickname)) {
+                    formattedText.append("</b>");
+                }
             } else {
                 formattedText.append("<font color=\"#cccccc\">").append(Html.escapeHtml(line)).append("</font>");
             }
